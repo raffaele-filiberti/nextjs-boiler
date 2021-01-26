@@ -249,10 +249,10 @@
   dependencies:
     clean-css "^4.2.1"
 
-"@flbrt/utils@^1.1.2":
-  version "1.1.2"
-  resolved "https://verdaccio.flbrt.it/@flbrt%2futils/-/utils-1.1.2.tgz#319a40e59757e444933936dbf0e23a535f784091"
-  integrity sha512-BQ5fo0lFKC57ROVMoMhgbjA5sH9/tbbdeFGTUhQatr87CvdWs2czvUXWhg17b+p4gmedkzPYekCQ4ndtKiL0Rw==
+"@flbrt/utils@^1.2.1":
+  version "1.2.1"
+  resolved "https://verdaccio.flbrt.it/@flbrt%2futils/-/utils-1.2.1.tgz#161158636b2ebf1b9e1c3d39b91e0fe7518eead6"
+  integrity sha512-yMghkd/x2T0mmSv0ZMAyPe1eT+WO23TmFoHQhAl3RlSxaG5vLvt9maHCGX5/vxeA5Zic9WMJf5yqNnZa0E/dIQ==
 
 "@hapi/accept@5.0.1":
   version "5.0.1"

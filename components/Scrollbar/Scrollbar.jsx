@@ -1,11 +1,10 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 import { motion, useMotionValue, useTransform } from 'framer-motion';
 import styled from 'styled-components';
+import useResizeObserver from 'use-resize-observer';
 import { clamp, lerp } from '@flbrt/utils/math';
 import { childrenPreset } from '@flbrt/utils/react/prop-types';
-import useResizeObserver from 'use-resize-observer';
-import useRaf from '../../hooks/useRaf';
-import useWheel from '../../hooks/useWheel';
+import { useRaf, useWheel } from '@flbrt/utils/react/hooks';
 import { ScrollbarProvider } from '../../context/Scrollbar';
 
 const Progress = styled.div`

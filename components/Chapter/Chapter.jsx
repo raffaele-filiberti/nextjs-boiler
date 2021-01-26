@@ -76,9 +76,9 @@ const Chapter = () => {
       >
         Header inside viewport
       </motion.h2>
-      <p>
+      <div>
         {addParagraphLines()}
-      </p>
+      </div>
     </Spacer>
   );
 };
