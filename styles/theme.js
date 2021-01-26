@@ -14,7 +14,12 @@ const theme = {
     base: 'var(--color-base)',
   },
   gutter: { n: 0 },
-  space: { n: 0 },
+  space: {
+    n: 0,
+    containerX: 'var(--container-x)',
+    containerY: 'var(--container-y)',
+    chapterY: 'var(--chapter-y)',
+  },
   typography: {
     display: {
       fontFamily: 'var(--font-family-display)',

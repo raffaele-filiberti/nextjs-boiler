@@ -1,5 +1,5 @@
 {
-  "name": "folio-venti-ventuno",
+  "name": "nextjs-boiler",
   "version": "1.0.0",
   "main": "index.js",
   "author": "Raffaele Filiberti <raffaele.filiberti@gmail.com>",
@@ -21,7 +21,9 @@
     "preact": "^10.5.10",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
-    "styled-components": "^5.2.1"
+    "react-intersection-observer": "^8.31.0",
+    "styled-components": "^5.2.1",
+    "use-resize-observer": "^7.0.0"
   },
   "devDependencies": {
     "@flbrt/eslint-config": "1.0.1",

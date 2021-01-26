@@ -10,11 +10,24 @@ export default css/* css */`
   user-select: none;
 }
 
+
 html,
 body,
 #__next {
-  height: 100%;
-  -webkit-overflow-scrolling: touch;
+  min-height: 100%;
+  overscroll-behavior: none;
+  --webkit-overflow-scrolling: 'touch';
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+body {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 button {

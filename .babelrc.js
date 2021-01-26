@@ -1,4 +1,6 @@
-{
+const dev = process.env.NODE_ENV !== 'production';
+
+module.exports = {
   "presets": [
     "next/babel"
   ],
@@ -6,7 +8,7 @@
     [
       "styled-components",
       {
-        "ssr": true,
+        "ssr": !dev,
         "displayName": true,
         "preprocess": false
       }

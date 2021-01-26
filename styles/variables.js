@@ -34,5 +34,9 @@ export default css/* css */`
     ${fluidRange(fontSizeDisplay, XD_MIN, XD_MAX)}
     ${fluidRange(fontSizeHeading, XD_MIN, XD_MAX)}
     ${fluidRange(fontSizeBase, XD_MIN, XD_MAX)}
+
+    --container-x: 5.208vw;
+    --container-y: 2.083vw;
+    --chapter-y: 1.5625vw;
   }
 `;

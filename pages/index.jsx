@@ -1,6 +1,8 @@
 import React from 'react';
 import { Text } from '@flbrt/styled';
 import Link from 'next/link';
+import Parallax from '../components/Parallax/Parallax';
+import Chapter from '../components/Chapter/Chapter';
 
 export default function Index() {
   return (
@@ -12,6 +14,7 @@ export default function Index() {
         Home
       </Text>
       <Text
+        as="p"
         variant="heading"
         tint="primary"
       >
@@ -20,7 +23,19 @@ export default function Index() {
         Earum, quasi. Saepe, exercitationem laudantium voluptatibus
         esse accusantium vero incidunt numquam eveniet sunt!
       </Text>
-      <Link href="/about">
+      <div style={{ paddingTop: '100vh' }} />
+      <Chapter />
+      <Parallax>
+        <Chapter />
+      </Parallax>
+      <div style={{ paddingTop: '100vh' }} />
+      <Chapter />
+      <div style={{ paddingTop: '100vh' }} />
+      <Link
+        href="/about"
+        scroll={false}
+        passHref
+      >
         <Text
           as="a"
           variant="heading"

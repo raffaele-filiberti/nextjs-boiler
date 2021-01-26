@@ -48,7 +48,11 @@ function MyApp({ Component, pageProps, router }) {
     <StyleSheetManager disableVendorPrefixes>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
-        <AnimatePresence exitBeforeEnter>
+        <AnimatePresence
+          exitBeforeEnter
+          initial={false}
+          onExitComplete={() => window.scrollTo(0, 0)}
+        >
           <Layout key={router.route}>
             <Component {...pageProps} />
           </Layout>

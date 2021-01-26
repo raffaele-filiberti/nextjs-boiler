@@ -1,5 +1,6 @@
 import React from 'react';
 import { Text } from '@flbrt/styled';
+import Link from 'next/link';
 
 export default function About() {
   return (
@@ -19,6 +20,20 @@ export default function About() {
         Earum, quasi. Saepe, exercitationem laudantium voluptatibus
         esse accusantium vero incidunt numquam eveniet sunt!
       </Text>
+      <div style={{ paddingTop: '100vh' }} />
+      <Link
+        href="/"
+        scroll={false}
+        passHref
+      >
+        <Text
+          as="a"
+          variant="heading"
+        >
+          Go back to Home
+        </Text>
+      </Link>
+      <div style={{ paddingTop: '100vh' }} />
     </div>
   );
 }

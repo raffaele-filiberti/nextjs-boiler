@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { supportsHover } from '@flbrt/styled';
 import variables from './variables';
 import reset from './reset';
 
@@ -11,6 +12,12 @@ const GlobalStyle = createGlobalStyle/* css */`
   html.is-animating #__next {
     overflow: hidden;
   }
+
+  ${supportsHover/* css */`
+    #__next {
+      position: fixed;
+    }
+  `}
 
   body {
     background-color: var(--color-secondary);
