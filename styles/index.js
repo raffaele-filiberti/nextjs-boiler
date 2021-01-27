@@ -20,10 +20,11 @@ const GlobalStyle = createGlobalStyle/* css */`
   `}
 
   body {
-    background-color: var(--color-secondary);
+    background-color: var(--color-background);
     font-family: var(--font-family-base);
     font-size: var(--font-size-base);
-    color: #fff;
+    color: var(--color-base);
+    line-height: 1.4;
   }
 
 

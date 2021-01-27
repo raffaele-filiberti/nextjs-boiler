@@ -8,26 +8,27 @@ const XD_MAX = '1920px';
 const fontSizeDisplay = {
   prop: '--font-size-display',
   fromSize: '42px',
-  toSize: '150px',
+  toSize: '300px',
 };
 
 const fontSizeHeading = {
   prop: '--font-size-heading',
-  fromSize: '16px',
-  toSize: '18px',
+  fromSize: '24px',
+  toSize: '32px',
 };
 
 const fontSizeBase = {
   prop: '--font-size-base',
-  fromSize: '16px',
-  toSize: '20px',
+  fromSize: '14px',
+  toSize: '18px',
 };
 
 export default css/* css */`
   :root {
-    --color-primary: #34ecd5;
-    --color-secondary: #2c3b90;
-    --color-base: #fff;
+    --color-primary: #4d4d4d;
+    --color-secondary: #2d2d2d;
+    --color-background: #fff;
+    --color-base: #000;
 
     --font-family-base: 'Space Mono', monospace;
 
@@ -38,5 +39,10 @@ export default css/* css */`
     --container-x: 5.208vw;
     --container-y: 2.083vw;
     --chapter-y: 1.5625vw;
+
+    --space-s: 1.5em;
+    --space-m: 2.5em;
+    --space-l: 5em;
+    --space-xl: 7.5em;
   }
 `;

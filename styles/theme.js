@@ -19,11 +19,16 @@ const theme = {
     containerX: 'var(--container-x)',
     containerY: 'var(--container-y)',
     chapterY: 'var(--chapter-y)',
+    spaceS: 'var(--space-s)',
+    spaceM: 'var(--space-m)',
+    spaceL: 'var(--space-l)',
+    spaceXL: 'var(--space-xl)',
   },
   typography: {
     display: {
       fontFamily: 'var(--font-family-display)',
       fontSize: 'var(--font-size-display)',
+      lineHeight: 0.8,
     },
     heading: {
       fontFamily: 'var(--font-family-heading)',

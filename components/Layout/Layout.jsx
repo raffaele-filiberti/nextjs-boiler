@@ -8,7 +8,7 @@ const Layout = ({ children }) => (
   <Scrollbar>
     <Spacer
       as={motion.div}
-      root={['containerY', 'containerX']}
+      root={['n', 'containerX', 'containerY', 'containerX']}
       exit="exit"
       animate="animate"
       initial="initial"

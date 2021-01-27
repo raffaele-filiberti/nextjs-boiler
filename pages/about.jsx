@@ -5,16 +5,10 @@ import Link from 'next/link';
 export default function About() {
   return (
     <div>
-      <Text
-        variant="display"
-        tint="primary"
-      >
+      <Text variant="display">
         About
       </Text>
-      <Text
-        variant="heading"
-        tint="primary"
-      >
+      <Text variant="heading">
         Lorem ipsum dolor sit amet consectetur adipisicing elit.
         Enim ducimus, eos atque quibusdam rem eaque qui nesciunt?
         Earum, quasi. Saepe, exercitationem laudantium voluptatibus
