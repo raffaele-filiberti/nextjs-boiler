@@ -2,7 +2,6 @@ import React, { useContext } from 'react';
 import { Col, Row, Spacer, Text } from '@flbrt/styled';
 import Link from 'next/link';
 import Parallax from '../components/Parallax/Parallax';
-import Chapter from '../components/Chapter/Chapter';
 import ScrollbarContext from '../context/Scrollbar';
 import {
   SpanBlock,
@@ -28,56 +27,56 @@ export default function Index() {
         align="end"
       >
         <Text variant="display">
-          <Parallax
-            as={SpanBlock}
+          <SpanBlock
+            as={Parallax}
             position="top"
             speed={0.1}
           >
             FLBRT
-          </Parallax>
-          <Parallax
-            as={Version}
+          </SpanBlock>
+          <Version
+            as={Parallax}
             position="top"
             speed={0.4}
           >
             &#172;
-          </Parallax>
+          </Version>
           <br />
-          <Parallax
-            as={SpanBlock}
+          <SpanBlock
+            as={Parallax}
             position="top"
             speed={0.05}
           >
             SCROLLBAR
-          </Parallax>
+          </SpanBlock>
           <br />
-          <Parallax
-            as={Version}
+          <Version
+            as={Parallax}
             position="top"
             speed={0.3}
           >
             V
-          </Parallax>
-          <Parallax
-            as={Version}
+          </Version>
+          <Version
+            as={Parallax}
             position="top"
             speed={0.4}
           >
             1
-          </Parallax>
-          <Parallax
-            as={Version}
+          </Version>
+          <Version
+            as={Parallax}
             position="top"
           >
             .
-          </Parallax>
-          <Parallax
-            as={Version}
+          </Version>
+          <Version
+            as={Parallax}
             position="top"
             speed={0.2}
           >
             0
-          </Parallax>
+          </Version>
         </Text>
       </Hero>
       <Divider />
@@ -117,7 +116,7 @@ export default function Index() {
               justify="between"
               onClick={() => scrollTo('section-2')}
             >
-              <span>Section 2</span>
+              <span>02.FIXED ELEMENTS</span>
               <span>↓</span>
             </Row>
             <Row
@@ -139,7 +138,10 @@ export default function Index() {
           </Row>
         </Col>
       </Row>
-      <div id="section-1">
+      <div
+        id="section-1"
+        style={{ paddingBottom: '50vh' }}
+      >
         <Row justify="between">
           <Col
             col={4}
@@ -176,7 +178,7 @@ export default function Index() {
                   alt=""
                 />
               </div>
-              <Text>Speed 2x</Text>
+              <Text>SPEED 2x</Text>
               <Bubble
                 as={Parallax}
                 speed={0.4}
@@ -204,6 +206,7 @@ export default function Index() {
                   />
                 </Parallax>
               </div>
+              <Text>SPEED 4x</Text>
             </Parallax>
           </Col>
           <Col col={4}>
@@ -215,23 +218,24 @@ export default function Index() {
                       objectFit: 'cover',
                       width: '100%',
                     }}
-                    src="/01.jpg"
+                    src="/03.jpg"
                     alt=""
                   />
                 </Parallax>
               </div>
+              <Text>SPEED 6x</Text>
             </Parallax>
           </Col>
         </Row>
       </div>
-      <div id="section-2">
+      <div
+        id="section-2"
+      >
         <Row
           justify="between"
-          style={{ paddingBottom: '50vh' }}
         >
           <Col
             col={4}
-            style={{ paddingTop: '35vh' }}
 
           >
             <Parallax
@@ -240,6 +244,7 @@ export default function Index() {
               speed={0}
               position="sticky"
               target="#section-2"
+              style={{ paddingTop: '35vh' }}
             >
               <Text variant="heading">
                 02.
@@ -254,19 +259,30 @@ export default function Index() {
           <Col col={7}>
             <StickyWrapper>
               <StickyTarget id="sticky-target" />
-              <StickyContent>
+              <Parallax
+                as={StickyContent}
+                position="sticky"
+                target="#sticky-target"
+              >
                 <img
                   style={{
                     objectFit: 'cover',
                     width: '100%',
+                    height: '100%',
                   }}
-                  src="/01.jpg"
+                  src="/04.jpg"
                   alt=""
                 />
-              </StickyContent>
+              </Parallax>
             </StickyWrapper>
           </Col>
         </Row>
+      </div>
+      <div id="section-3">
+        <Row
+          justify="between"
+          style={{ paddingBottom: '100vh' }}
+        />
       </div>
       <Link
         href="/about"

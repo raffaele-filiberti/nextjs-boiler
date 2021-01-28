@@ -14,8 +14,9 @@ const GlobalStyle = createGlobalStyle/* css */`
   }
 
   ${supportsHover/* css */`
-    #__next {
+    body {
       position: fixed;
+      overflow: hidden;
     }
   `}
 

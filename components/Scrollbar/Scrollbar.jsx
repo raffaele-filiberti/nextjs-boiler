@@ -1,10 +1,10 @@
-import React, { useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { animate, motion, useMotionValue, useTransform } from 'framer-motion';
 import useResizeObserver from 'use-resize-observer';
 import { clamp, lerp } from '@flbrt/utils/math';
 import { childrenPreset } from '@flbrt/utils/react/prop-types';
-import { useRaf, useWheel } from '@flbrt/utils/react/hooks';
+import { useRaf, useWheel, useDidUpdate } from '@flbrt/utils/react/hooks';
 import { isNumber, isString } from '@flbrt/utils/type';
 import { ScrollbarProvider } from '../../context/Scrollbar';
 
@@ -35,7 +35,7 @@ const Scrollbar = ({
     [resizeRef],
   );
 
-  useEffect(() => {
+  useDidUpdate(() => {
     limit.current = height - window.innerHeight;
     target.current = clamp(target.current, 0, limit.current);
   }, [height]);

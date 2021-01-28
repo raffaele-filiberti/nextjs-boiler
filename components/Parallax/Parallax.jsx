@@ -3,38 +3,38 @@ import PropTypes from 'prop-types';
 import { childrenPreset } from '@flbrt/utils/react/prop-types';
 import { motion, useTransform } from 'framer-motion';
 import { useResize } from '@flbrt/utils/react/hooks';
+import { getTranslate } from '@flbrt/utils/dom';
 import ScrollbarContext from '../../context/Scrollbar';
 
 const parallaxByPosition = {
-  top: (bounds, value, speed) => value * -speed,
-  elementTop: ({ current: bounds }, value, speed) => {
-    const scrollBottom = value + global.innerHeight;
-    return (scrollBottom - bounds.top) * -speed;
-  },
-  bottom: (bounds, value, speed, { current: limit }) => {
-    const scrollBottom = value + global.innerHeight;
-    return (limit - scrollBottom + global.innerHeight) * -speed;
-  },
-  sticky: ({ current: bounds }, value) => {
-    // value - bounds.top + global.innerHeight
+  top: ({ scrollTop, speed }) => scrollTop * -speed,
+  elementTop: ({ scrollBottom, speed, bounds }) => (scrollBottom - bounds.top) * -speed,
+  bottom: ({ scrollBottom, speed, limit }) => (limit - scrollBottom + global.innerHeight) * -speed,
+  sticky: ({
+    scrollTop,
+    bounds,
+    inView,
+    prev,
+  }) => {
+    if (inView) {
+      return scrollTop - bounds.top + global.innerHeight;
+    }
     if (
-      value < bounds.top - global.innerHeight
-      && value < bounds.top - global.innerHeight / 2
+      scrollTop < bounds.top - global.innerHeight
+      && scrollTop < bounds.top - global.innerHeight / 2
     ) {
       return 0;
-    } if (
-      value > bounds.bottom
-      && value > bounds.bottom + 100
+    }
+    if (
+      scrollTop > bounds.bottom
+      && scrollTop > bounds.bottom + 100
     ) {
       return bounds.bottom - bounds.top + global.innerHeight;
     }
 
-    return 0;
+    return prev;
   },
-  normal: ({ current: bounds }, value, speed) => {
-    const scrollMiddle = value + global.innerHeight / 2;
-    return (scrollMiddle - bounds.middle) * -speed;
-  },
+  normal: ({ scrollMiddle, speed, bounds }) => (scrollMiddle - bounds.middle) * -speed,
 };
 
 const Parallax = ({
@@ -48,7 +48,10 @@ const Parallax = ({
   style,
   ...props
 }) => {
+  const inView = useRef(false);
+  const prev = useRef(0);
   const ref = useRef();
+
   const bounds = useRef({
     height: 0,
     top: 0,
@@ -64,14 +67,46 @@ const Parallax = ({
 
   const y = useTransform(
     scrollY,
-    (value) => parallaxByPosition[position](bounds, value, speed, limit),
+    (scrollTop) => {
+      const scrollBottom = scrollTop + global.innerHeight;
+      const scrollMiddle = scrollTop + global.innerHeight / 2;
+
+      const { current: { top, bottom } } = bounds;
+
+      if (!inView.current) {
+        if (scrollBottom >= top && scrollTop < bottom) {
+          inView.current = true;
+        }
+      } else if (scrollBottom < top || scrollTop > bottom) {
+        inView.current = false;
+      }
+
+      if (position === 'sticky' || inView.current) {
+        prev.current = parallaxByPosition[position]({
+          scrollBottom,
+          scrollMiddle,
+          scrollTop,
+          speed,
+          bounds: bounds.current,
+          limit: limit.current,
+          inView: inView.current,
+          prev: prev.current,
+        });
+      }
+
+      return prev.current;
+    },
   );
 
   const onResize = useCallback(() => {
     const targetEl = target ? document.querySelector(target) : ref.current;
     const targetElBCR = targetEl.getBoundingClientRect();
 
-    const top = targetElBCR.top + scrollY.get() - y.get();
+    const currentY = scrollY.get();
+
+    const { y: targetTranslateY } = getTranslate(targetEl);
+
+    const top = targetElBCR.top + currentY - targetTranslateY;
     const bottom = top + targetElBCR.height;
 
     bounds.current.top = top;

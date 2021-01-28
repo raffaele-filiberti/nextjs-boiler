@@ -145,10 +145,9 @@ export const StickyTarget = styled.div`
 `;
 
 export const StickyContent = styled.div`
+  height: 100%;
   position: absolute;
   top: -100vh;
-  bottom: -100vh;
   right: 0;
   left: 0;
-  height: 100%;
 `;
