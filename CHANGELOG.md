@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.0.0...1.0.1) (2021-01-28)
+
+
+### Performance Improvements
+
+* **parallax:** optimize parallax calculation ([ec6f0a8](https://github.com/raffaele-filiberti/nextjs-boiler/commit/ec6f0a83bde0156c186f958ea0afb3321ab673c6))
+
 # 1.0.0 (2021-01-26)
 
 
