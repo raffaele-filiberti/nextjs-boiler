@@ -4,7 +4,6 @@ import Head from 'next/head';
 import { childrenPreset } from '@flbrt/utils/react/prop-types';
 import { motion } from 'framer-motion';
 import { Spacer } from '@flbrt/styled';
-import Router from 'next/router';
 import Scrollbar from '../Scrollbar/Scrollbar';
 
 const Layout = ({ seo: { title, description, share }, children }) => (
@@ -30,7 +29,7 @@ const Layout = ({ seo: { title, description, share }, children }) => (
       />
       <meta
         property="og:url"
-        content={Router.pathname}
+        content="https://metatags.io/"
       />
       <meta
         property="og:title"
