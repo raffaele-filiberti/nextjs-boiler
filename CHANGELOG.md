@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.1.0...1.2.0) (2021-01-31)
+
+
+### Features
+
+* **meta-tags:** add seo meta tags on Layout component ([6e67266](https://github.com/raffaele-filiberti/nextjs-boiler/commit/6e67266b9c23642953450647b3a1bab6de927219))
+
 # [1.1.0](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.0.1...1.1.0) (2021-01-28)
 
 
