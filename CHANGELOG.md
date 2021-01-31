@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.0.1...1.1.0) (2021-01-28)
+
+
+### Features
+
+* **demo:** update demo page with sticky ([2ab4465](https://github.com/raffaele-filiberti/nextjs-boiler/commit/2ab446509e3384b5082d9816e258bcc311abba57))
+
 ## [1.0.1](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.0.0...1.0.1) (2021-01-28)
 
 
