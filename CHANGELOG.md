@@ -1,3 +1,10 @@
+## [1.2.1](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.2.0...1.2.1) (2021-01-31)
+
+
+### Bug Fixes
+
+* **meta-tags:** fix Router.pathname ssr error ([677b010](https://github.com/raffaele-filiberti/nextjs-boiler/commit/677b010e0b806edf4e31dcf1f1ab6f16976a8ea9))
+
 # [1.2.0](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.1.0...1.2.0) (2021-01-31)
 
 
