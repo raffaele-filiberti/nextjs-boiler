@@ -1,11 +1,71 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import Head from 'next/head';
 import { childrenPreset } from '@flbrt/utils/react/prop-types';
 import { motion } from 'framer-motion';
 import { Spacer } from '@flbrt/styled';
+import Router from 'next/router';
 import Scrollbar from '../Scrollbar/Scrollbar';
 
-const Layout = ({ children }) => (
+const Layout = ({ seo: { title, description, share }, children }) => (
   <Scrollbar>
+    <Head>
+      <meta
+        name="viewport"
+        content="initial-scale=1.0, width=device-width"
+      />
+      <title>{title}</title>
+      <meta
+        name="title"
+        content={title}
+      />
+      <meta
+        name="description"
+        content={description}
+      />
+
+      <meta
+        property="og:type"
+        content="website"
+      />
+      <meta
+        property="og:url"
+        content={Router.pathname}
+      />
+      <meta
+        property="og:title"
+        content={title}
+      />
+      <meta
+        property="og:description"
+        content={description}
+      />
+      <meta
+        property="og:image"
+        content={share}
+      />
+
+      <meta
+        property="twitter:card"
+        content="summary_large_image"
+      />
+      <meta
+        property="twitter:url"
+        content="https://metatags.io/"
+      />
+      <meta
+        property="twitter:title"
+        content={title}
+      />
+      <meta
+        property="twitter:description"
+        content={description}
+      />
+      <meta
+        property="twitter:image"
+        content={share}
+      />
+    </Head>
     <Spacer
       as={motion.div}
       root={['n', 'containerX', 'containerY', 'containerX']}
@@ -35,7 +95,16 @@ const Layout = ({ children }) => (
   </Scrollbar>
 );
 
-Layout.propTypes = { children: childrenPreset.isRequired };
-Layout.defaultProps = {};
+Layout.propTypes = {
+  children: childrenPreset.isRequired,
+  seo: PropTypes.objectOf(PropTypes.string),
+};
+Layout.defaultProps = {
+  seo: {
+    title: 'FLBRT | Boilerplate',
+    description: null,
+    share: null,
+  },
+};
 
 export default Layout;
