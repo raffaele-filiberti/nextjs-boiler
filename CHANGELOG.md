@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.2.1...1.3.0) (2021-03-01)
+
+
+### Features
+
+* **scrollbar:** add scroll direction and global context ([14ec736](https://github.com/raffaele-filiberti/nextjs-boiler/commit/14ec736f0d1ba91641aa51401a63e8cf50e8c359))
+
 ## [1.2.1](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.2.0...1.2.1) (2021-01-31)
 
 
