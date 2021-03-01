@@ -7,6 +7,9 @@ import GlobalStyles from '../styles';
 import theme from '../styles/theme';
 import { pageview } from '../lib/gtag';
 import Layout from '../components/Layout/Layout';
+import { ResponsiveProvider } from '../context/Responsive';
+import breakpoints from '../styles/breakpoints';
+import { ScrollbarProvider } from '../context/Scrollbar';
 
 const setVh = () => {
   document.documentElement.style.setProperty('--vh', `${window.innerHeight * 0.01}px`);
@@ -48,15 +51,19 @@ function MyApp({ Component, pageProps, router }) {
     <StyleSheetManager disableVendorPrefixes>
       <ThemeProvider theme={theme}>
         <GlobalStyles />
-        <AnimatePresence
-          exitBeforeEnter
-          initial={false}
-          onExitComplete={() => window.scrollTo(0, 0)}
-        >
-          <Layout key={router.route}>
-            <Component {...pageProps} />
-          </Layout>
-        </AnimatePresence>
+        <ResponsiveProvider breakpoints={breakpoints}>
+          <ScrollbarProvider>
+            <AnimatePresence
+              exitBeforeEnter
+              initial={false}
+              onExitComplete={() => window.scrollTo(0, 0)}
+            >
+              <Layout key={router.route}>
+                <Component {...pageProps} />
+              </Layout>
+            </AnimatePresence>
+          </ScrollbarProvider>
+        </ResponsiveProvider>
       </ThemeProvider>
     </StyleSheetManager>
   );

@@ -2,8 +2,9 @@ import React, { useCallback, useContext, useRef } from 'react';
 import PropTypes from 'prop-types';
 import { childrenPreset } from '@flbrt/utils/react/prop-types';
 import { motion, useTransform } from 'framer-motion';
-import { useResize } from '@flbrt/utils/react/hooks';
 import { getTranslate } from '@flbrt/utils/dom';
+import useResizeObserver from 'use-resize-observer';
+import { debounce } from '@flbrt/utils/time';
 import ScrollbarContext from '../../context/Scrollbar';
 
 const parallaxByPosition = {
@@ -46,6 +47,8 @@ const Parallax = ({
   position,
   speed,
   style,
+  offset,
+  direction,
   ...props
 }) => {
   const inView = useRef(false);
@@ -98,7 +101,7 @@ const Parallax = ({
     },
   );
 
-  const onResize = useCallback(() => {
+  const onResize = debounce(() => {
     const targetEl = target ? document.querySelector(target) : ref.current;
     const targetElBCR = targetEl.getBoundingClientRect();
 
@@ -106,8 +109,10 @@ const Parallax = ({
 
     const { y: targetTranslateY } = getTranslate(targetEl);
 
-    const top = targetElBCR.top + currentY - targetTranslateY;
-    const bottom = top + targetElBCR.height;
+    const relativeOffset = (offset * global.innerHeight) / 100;
+
+    const top = targetElBCR.top + currentY - targetTranslateY + relativeOffset;
+    const bottom = top + targetElBCR.height - relativeOffset;
 
     bounds.current.top = top;
     bounds.current.bottom = bottom;
@@ -120,17 +125,34 @@ const Parallax = ({
       bounds.current.bottom = elTop + targetElBCR.height - elHeight - elDistance;
     }
 
-    bounds.current.middle = (bounds.current.bottom - bounds.current.top) / 2 + bounds.current.top;
-  }, []);
+    const {
+      top: $top,
+      bottom: $bottom,
+    } = bounds.current;
 
-  useResize(onResize);
+    bounds.current.middle = ($bottom - $top) / 2 + $top;
+  }, 100);
+
+  const { ref: resizeRef } = useResizeObserver({ onResize });
+
+  const setRefs = useCallback(
+    (node) => {
+      ref.current = node;
+      resizeRef(node);
+    },
+    [resizeRef],
+  );
 
   return (
     <Component
       as={As && motion[motionTag]}
       className={className}
-      ref={ref}
-      style={{ y, ...style }}
+      ref={setRefs}
+      style={{
+        x: direction === 'horizontal' ? y : 0,
+        y: direction === 'vertical' ? y : 0,
+        ...style,
+      }}
       {...props}
     >
       {children}
@@ -142,8 +164,10 @@ Parallax.propTypes = {
   as: PropTypes.element,
   tag: PropTypes.string,
   target: PropTypes.string,
+  offset: PropTypes.number,
   children: childrenPreset.isRequired,
   className: PropTypes.string,
+  direction: PropTypes.string,
   position: PropTypes.oneOf([
     'bottom',
     'elementLeft',
@@ -164,7 +188,9 @@ Parallax.defaultProps = {
   target: null,
   className: null,
   position: 'normal',
+  direction: 'vertical',
   speed: 0.1,
+  offset: 0,
   style: {},
 };
 

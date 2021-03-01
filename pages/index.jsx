@@ -15,6 +15,7 @@ import {
   StickyTarget,
   StickyContent,
 } from '../styles/common';
+import StickyHorizontalSlider from '../components/StickyHorizontalSlider/StickyHorizontalSlider';
 
 export default function Index() {
   const { scrollTo } = useContext(ScrollbarContext);
@@ -106,7 +107,7 @@ export default function Index() {
             <Row
               as={Line}
               justify="between"
-              onClick={() => scrollTo('section-1')}
+              onClick={() => scrollTo('#section-1')}
             >
               <span>01.SPEED CONTROL</span>
               <span>↓</span>
@@ -114,7 +115,7 @@ export default function Index() {
             <Row
               as={Line}
               justify="between"
-              onClick={() => scrollTo('section-2')}
+              onClick={() => scrollTo('#section-2')}
             >
               <span>02.FIXED ELEMENTS</span>
               <span>↓</span>
@@ -122,7 +123,7 @@ export default function Index() {
             <Row
               as={Line}
               justify="between"
-              onClick={() => scrollTo('section-3')}
+              onClick={() => scrollTo('#section-3')}
             >
               <span>Section 3</span>
               <span>↓</span>
@@ -130,7 +131,7 @@ export default function Index() {
             <Row
               as={Line}
               justify="between"
-              onClick={() => scrollTo('section-4')}
+              onClick={() => scrollTo('#section-4')}
             >
               <span>Section 4</span>
               <span>↓</span>
@@ -228,16 +229,9 @@ export default function Index() {
           </Col>
         </Row>
       </div>
-      <div
-        id="section-2"
-      >
-        <Row
-          justify="between"
-        >
-          <Col
-            col={4}
-
-          >
+      <div id="section-2">
+        <Row justify="between">
+          <Col col={4}>
             <Parallax
               as={Spacer}
               top="spaceS"
@@ -278,7 +272,38 @@ export default function Index() {
           </Col>
         </Row>
       </div>
-      <div id="section-3">
+      <div>
+        <Row
+          justify="between"
+          style={{ paddingBottom: '50vh' }}
+        />
+      </div>
+      <StickyHorizontalSlider />
+      {/* <Row justify="between">
+          <Col col={4}>
+            <Parallax
+              as={Spacer}
+              top="spaceS"
+              speed={0}
+              position="sticky"
+              target="#section-3"
+              style={{ paddingTop: '35vh' }}
+            >
+              <Text variant="heading">
+                03.
+                <br />
+                STICKY HORIZONTAL SLIDER
+              </Text>
+              <Text>
+                Create slides that stick and untick to the viewport while scrolling through.
+              </Text>
+            </Parallax>
+          </Col>
+          <Col col={7}> */}
+      {/*
+          </Col>
+        </Row> */}
+      <div>
         <Row
           justify="between"
           style={{ paddingBottom: '100vh' }}
