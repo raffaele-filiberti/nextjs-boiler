@@ -2,7 +2,23 @@
   "extends": [
     "@flbrt/eslint-config"
   ],
+  "plugins": [
+    "react-hooks"
+  ],
   "rules": {
-    "react/jsx-props-no-spreading": 0
+    // uncomment in monorepo
+    //
+    // "import/no-extraneous-dependencies": [
+    //   "error",
+    //   {
+    //     "packageDir": [
+    //       "./packages/frontend/"
+    //     ]
+    //   }
+    // ],
+    "react/jsx-props-no-spreading": 0,
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "no-nested-ternary": 0
   }
 }
