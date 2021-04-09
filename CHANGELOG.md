@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.3.0...1.4.0) (2021-04-09)
+
+
+### Features
+
+* **typescript:** complete migration to ts ([3356d23](https://github.com/raffaele-filiberti/nextjs-boiler/commit/3356d234bc32a1a7fc29e9d1b6ad2d75d1f5f280))
+
 # [1.3.0](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.2.1...1.3.0) (2021-03-01)
 
 
