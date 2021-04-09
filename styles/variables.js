@@ -38,11 +38,12 @@ export default css/* css */`
 
     --container-x: 5.208vw;
     --container-y: 2.083vw;
-    --chapter-y: 1.5625vw;
 
-    --space-s: 1.5em;
-    --space-m: 2.5em;
-    --space-l: 5em;
-    --space-xl: 7.5em;
+    --s: 8px;
+    --m: 16px;
+    --l: 24px;
+    --xl: 32px;
+    --xxl: 40px;
+    --xxxl: 56px;
   }
 `;

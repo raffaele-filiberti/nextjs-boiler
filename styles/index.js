@@ -28,11 +28,6 @@ const GlobalStyle = createGlobalStyle/* css */`
     line-height: 1.4;
   }
 
-  #__next {
-    width:100vw;
-  }
-
-
   ::-webkit-scrollbar {
     width: 6px;
   }

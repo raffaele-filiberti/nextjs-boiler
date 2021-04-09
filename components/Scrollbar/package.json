@@ -1,0 +1,4 @@
+{
+  "name": "scrollbar",
+  "main": "./Scrollbar.tsx"
+}

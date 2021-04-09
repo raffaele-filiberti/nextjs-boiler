@@ -18,11 +18,12 @@ const theme = {
     n: 0,
     containerX: 'var(--container-x)',
     containerY: 'var(--container-y)',
-    chapterY: 'var(--chapter-y)',
-    spaceS: 'var(--space-s)',
-    spaceM: 'var(--space-m)',
-    spaceL: 'var(--space-l)',
-    spaceXL: 'var(--space-xl)',
+    s: 'var(--s)',
+    m: 'var(--m)',
+    l: 'var(--l)',
+    xl: 'var(--xl)',
+    xxl: 'var(--xxl)',
+    xxxl: 'var(--xxxl)',
   },
   typography: {
     display: {
