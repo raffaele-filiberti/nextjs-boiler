@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useRef } from 'react';
-import { motion, useTransform } from 'framer-motion';
+import { m as motion, useTransform } from 'framer-motion';
 import { clamp, lerp } from '@flbrt/utils/math';
 import { useRaf, useResize, useWheel } from '@flbrt/utils/react/hooks';
 import { debounce } from '@flbrt/utils/time';

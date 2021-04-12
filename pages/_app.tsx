@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { StyleSheetManager, ThemeProvider } from 'styled-components';
 import { addEvent } from '@flbrt/utils/dom';
-import { AnimatePresence } from 'framer-motion';
+import { AnimatePresence, LazyMotion, domAnimation } from 'framer-motion';
 import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
 import GlobalStyles from '~/styles';
@@ -59,16 +59,21 @@ const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
         <GlobalStyles />
         <ResponsiveProvider breakpoints={breakpoints}>
           <ScrollbarProvider>
-            <AnimatePresence
-              exitBeforeEnter
-              initial={false}
-              onExitComplete={() => window.scrollTo(0, 0)}
+            <LazyMotion
+              features={domAnimation}
+              strict
             >
-              <Layout key={router.route}>
-                <DefaultSeo {...SEO} />
-                <Component {...pageProps} />
-              </Layout>
-            </AnimatePresence>
+              <AnimatePresence
+                exitBeforeEnter
+                initial={false}
+                onExitComplete={() => window.scrollTo(0, 0)}
+              >
+                <Layout key={router.route}>
+                  <DefaultSeo {...SEO} />
+                  <Component {...pageProps} />
+                </Layout>
+              </AnimatePresence>
+            </LazyMotion>
           </ScrollbarProvider>
         </ResponsiveProvider>
       </ThemeProvider>

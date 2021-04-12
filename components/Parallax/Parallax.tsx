@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useRef } from 'react';
-import { motion, useTransform } from 'framer-motion';
+import { m as motion, useTransform } from 'framer-motion';
 import { getTranslate } from '@flbrt/utils/dom';
 import useResizeObserver from 'use-resize-observer';
 import { debounce } from '@flbrt/utils/time';
