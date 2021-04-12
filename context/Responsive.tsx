@@ -1,6 +1,4 @@
 import React, { useState, useCallback, createContext } from 'react';
-import PropTypes from 'prop-types';
-import { childrenPreset } from '@flbrt/utils/react/prop-types';
 import { useResize } from '@flbrt/utils/react/hooks';
 
 interface ResponsiveContextInterface {
@@ -73,11 +71,6 @@ export const ResponsiveProvider = ({
   useResize(onResize);
 
   return <Provider value={screen}>{children}</Provider>;
-};
-
-ResponsiveProvider.propTypes = {
-  children: childrenPreset.isRequired,
-  breakpoints: PropTypes.objectOf(PropTypes.number).isRequired,
 };
 
 export default ResponsiveContext;

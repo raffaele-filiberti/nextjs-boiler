@@ -117,7 +117,7 @@ const Parallax = ({
   );
 
   const onResize = debounce(() => {
-    const targetEl = target ? document.querySelector(target) : ref.current;
+    const targetEl = target ? document.querySelector<HTMLElement>(target) : ref.current;
     const targetElBCR = targetEl.getBoundingClientRect();
 
     const currentY = scrollY.get();

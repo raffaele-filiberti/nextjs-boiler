@@ -23,7 +23,7 @@ const setVh = () => {
 
 const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
   useEffect(() => {
-    const handleRouteChange = (url) => {
+    const handleRouteChange = (url: string) => {
       pageview(url);
     };
 

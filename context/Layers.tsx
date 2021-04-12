@@ -1,4 +1,3 @@
-import { childrenPreset } from '@flbrt/utils/react/prop-types';
 import { isObject } from '@flbrt/utils/type';
 import React, { useCallback, useEffect, useReducer } from 'react';
 import { useRouter } from 'next/router';
@@ -168,8 +167,6 @@ export const LayerProvider = ({ children }: { children: React.ReactElement }): J
     </Provider>
   );
 };
-
-LayerProvider.propTypes = { children: childrenPreset.isRequired };
 
 export default LayerContext;
 
