@@ -1,3 +1,16 @@
+# [1.5.0](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.4.0...1.5.0) (2021-04-12)
+
+
+### Bug Fixes
+
+* **types:** fix types and remove propTypes ([528e5cd](https://github.com/raffaele-filiberti/nextjs-boiler/commit/528e5cd42f3adc2870e9ddb58b459774e8cacb43))
+
+
+### Features
+
+* **ts:** migrate from js to ts ([7a2723f](https://github.com/raffaele-filiberti/nextjs-boiler/commit/7a2723f79301cbca4bbe071ae9547e63b6ebd3fe))
+* **utils:** update @flbrt/utils ([650980c](https://github.com/raffaele-filiberti/nextjs-boiler/commit/650980cb834af60e944c0926ba1d4dce8763b58b))
+
 # [1.4.0](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.3.0...1.4.0) (2021-04-09)
 
 
