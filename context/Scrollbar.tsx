@@ -58,9 +58,9 @@ export const ScrollbarProvider = ({ children }: Props): JSX.Element => {
     duration = 1,
     ease = [0.65, 0, 0.35, 1],
   } = {
-      duration: 1,
-      ease: [0.65, 0, 0.35, 1],
-    }) => {
+    duration: 1,
+    ease: [0.65, 0, 0.35, 1],
+  }) => {
     let targetY = 0;
 
     if (isNumber(to)) {
