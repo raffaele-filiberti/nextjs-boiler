@@ -104,10 +104,6 @@
     "react/no-danger": 0,
     "react/prop-types": 0,
     "react/react-in-jsx-scope": 0,
-    "linebreak-style": [
-      "error",
-      "windows"
-    ],
     "no-use-before-define": "off",
     "@typescript-eslint/no-use-before-define": [
       "error"
