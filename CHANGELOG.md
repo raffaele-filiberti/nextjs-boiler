@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.5.0...1.6.0) (2021-04-18)
+
+
+### Features
+
+* **sitemap:** add static and dynamic sitemap generation ([90b7858](https://github.com/raffaele-filiberti/nextjs-boiler/commit/90b7858f1bef6034c432530a2b1cdfdca2e97296))
+
 # [1.5.0](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.4.0...1.5.0) (2021-04-12)
 
 
