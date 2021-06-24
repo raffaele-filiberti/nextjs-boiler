@@ -1,27 +1,4 @@
 import { css } from 'styled-components';
-import { fluidRange } from 'polished';
-
-const XD_MIN = '375px';
-
-const XD_MAX = '1920px';
-
-const fontSizeDisplay = {
-  prop: '--font-size-display',
-  fromSize: '42px',
-  toSize: '300px',
-};
-
-const fontSizeHeading = {
-  prop: '--font-size-heading',
-  fromSize: '24px',
-  toSize: '32px',
-};
-
-const fontSizeBase = {
-  prop: '--font-size-base',
-  fromSize: '14px',
-  toSize: '18px',
-};
 
 export default css/* css */`
   :root {
@@ -32,9 +9,9 @@ export default css/* css */`
 
     --font-family-base: 'Space Mono', monospace;
 
-    ${fluidRange(fontSizeDisplay, XD_MIN, XD_MAX)}
-    ${fluidRange(fontSizeHeading, XD_MIN, XD_MAX)}
-    ${fluidRange(fontSizeBase, XD_MIN, XD_MAX)}
+    --font-size-display: 300px;
+    --font-size-heading: 32px;
+    --font-size-base: 14px;
 
     --container-x: 5.208vw;
     --container-y: 2.083vw;
