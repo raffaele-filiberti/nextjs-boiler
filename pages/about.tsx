@@ -18,7 +18,7 @@ const About = ({ seo }: Props): JSX.Element => (
     <Text variant="display">
       ABOUT
     </Text>
-    <Text variant="heading">
+    <Text variant="display">
       Lorem ipsum dolor sit amet consectetur adipisicing elit.
       Enim ducimus, eos atque quibusdam rem eaque qui nesciunt?
       Earum, quasi. Saepe, exercitationem laudantium voluptatibus
@@ -31,7 +31,7 @@ const About = ({ seo }: Props): JSX.Element => (
     >
       <Text
         as="a"
-        variant="heading"
+        variant="display"
       >
         Go back to Home
       </Text>

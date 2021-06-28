@@ -29,7 +29,7 @@ const Layout = ({ children }: Props): JSX.Element => (
   <Scrollbar>
     <Spacer
       as={motion.div}
-      root={['containerY', 'containerX']}
+      root={['l', 'xl']}
       exit="exit"
       animate="animate"
       initial="initial"
