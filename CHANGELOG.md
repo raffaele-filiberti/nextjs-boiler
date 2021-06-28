@@ -1,3 +1,17 @@
+# [1.7.0](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.6.0...1.7.0) (2021-06-28)
+
+
+### Bug Fixes
+
+* **fetcher:** rename strapi to fetcher and add variables generics ([ac23c02](https://github.com/raffaele-filiberti/nextjs-boiler/commit/ac23c0237acee3ebe689b8eb5c3184c06aff7ff5))
+* **styled:** update styled components with new specs ([f67331f](https://github.com/raffaele-filiberti/nextjs-boiler/commit/f67331fee1cd41426f217d47457ad54d5a9106d9))
+* **styles:** remove polished from deps ([268a953](https://github.com/raffaele-filiberti/nextjs-boiler/commit/268a95350965e847138c02dff3e62415d826c835))
+
+
+### Features
+
+* **graphql-codegen:** add graphql-codegen configurations ([17b818f](https://github.com/raffaele-filiberti/nextjs-boiler/commit/17b818f3332afe08a93fbf5bff26507eef5d919f))
+
 # [1.6.0](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.5.0...1.6.0) (2021-04-18)
 
 
