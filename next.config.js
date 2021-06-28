@@ -7,5 +7,4 @@ module.exports = withPlugins(
     bundleAnalyzer,
     transpileModules,
   ],
-  { future: { webpack5: true } },
 );
