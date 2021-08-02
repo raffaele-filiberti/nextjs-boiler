@@ -1,4 +1,7 @@
-import React, { useCallback, useContext, useEffect, useRef } from 'react';
+import React, {
+  useCallback, useContext, useEffect, useRef,
+  CSSProperties,
+} from 'react';
 import { m as motion, useTransform } from 'framer-motion';
 import { clamp, lerp } from '@flbrt/utils/math';
 import { useRaf, useResize, useWheel } from '@flbrt/utils/react/hooks';
@@ -7,13 +10,17 @@ import { addEvent } from '@flbrt/utils/dom';
 import ScrollbarContext from '~/context/Scrollbar';
 
 type Props = {
-  as?: string | React.ComponentType<any>;
   children: React.ReactNode;
-}
+  className?:string;
+  style?: CSSProperties;
+};
 
-const defaultProps = { as: motion.div };
+const defaultProps = {
+  className: null,
+  style: null,
+};
 
-const Scrollbar = ({ as: As, children }: Props): JSX.Element => {
+const Scrollbar = ({ children, className, style }: Props): JSX.Element => {
   const context = useContext(ScrollbarContext);
 
   const { scrollY, scrollYProgress, isNative } = context;
@@ -23,9 +30,11 @@ const Scrollbar = ({ as: As, children }: Props): JSX.Element => {
   const ref = useRef<HTMLDivElement>();
 
   useResize(debounce(() => {
-    const { offsetTop } = ref.current.parentElement;
-    context.limit = ref.current.clientHeight - window.innerHeight + offsetTop;
-    context.target = clamp(context.target, 0, context.limit);
+    if (ref.current) {
+      const { offsetTop } = ref.current.parentElement!;
+      context.limit = ref.current.clientHeight - window.innerHeight + offsetTop;
+      context.target = clamp(context.target, 0, context.limit);
+    }
   }, 100));
 
   const onRaf = useCallback(() => {
@@ -56,14 +65,16 @@ const Scrollbar = ({ as: As, children }: Props): JSX.Element => {
   useWheel(onWheel);
 
   useEffect(() => {
-    context.el = ref.current;
+    if (ref.current) {
+      context.el = ref.current;
 
-    const off = addEvent(ref.current, 'scroll', () => {
-      context.isRunning = false;
-      scrollY.set(ref.current.scrollTop);
-    });
+      const off = addEvent(ref.current, 'scroll', () => {
+        context.isRunning = false;
+        scrollY.set(ref.current!.scrollTop);
+      });
 
-    return off;
+      return off;
+    }
   }, [scrollY, context]);
 
   useEffect(() => () => {
@@ -71,13 +82,16 @@ const Scrollbar = ({ as: As, children }: Props): JSX.Element => {
   }, [context]);
 
   return (
-    <As
-      as={As ? motion.div : null}
+    <motion.div
       ref={ref}
-      style={{ y: !isNative ? y : null }}
+      className={className}
+      style={{
+        y: !isNative ? y : undefined,
+        ...style,
+      }}
     >
       {children}
-    </As>
+    </motion.div>
   );
 };
 

@@ -1,6 +1,7 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
 import React from 'react';
-import Document, { Html, Head, Main, NextScript } from 'next/document';
+import Document, {
+  Html, Head, Main, NextScript,
+} from 'next/document';
 import type { DocumentContext } from 'next/document';
 import { ServerStyleSheet } from 'styled-components';
 
@@ -39,6 +40,7 @@ class MyDocument extends Document<Props> {
         <Head>
           {this.props.styleTags}
           <script
+            // eslint-disable-next-line react/no-danger
             dangerouslySetInnerHTML={{
               __html: /* js */`
                 window.dataLayer = window.dataLayer || [];

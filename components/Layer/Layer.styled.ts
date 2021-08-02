@@ -8,7 +8,7 @@ const variants = {
 type Props = {
   readonly variant: 'base' | 'custom';
   [key: string]: unknown,
-}
+};
 
 const defaultProps = { variant: 'base' };
 

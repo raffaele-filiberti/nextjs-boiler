@@ -23,7 +23,7 @@ const variants = {
 
 type Props = {
   children: React.ReactNode;
-}
+};
 
 const Layout = ({ children }: Props): JSX.Element => (
   <Scrollbar>

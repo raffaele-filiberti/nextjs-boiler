@@ -1,4 +1,3 @@
-
 declare global {
   interface Window {
     gtag: any;
@@ -18,7 +17,7 @@ type Options = {
   category: string;
   label: string;
   value: string;
-}
+};
 
 // https://developers.google.com/analytics/devguides/collection/gtagjs/events
 export const event = (

@@ -8,14 +8,14 @@ type Props = {
     title: string;
     description: string;
   }
-}
+};
 
 const defaultProps = { seo: null };
 
 const Index = ({ seo }: Props): JSX.Element => (
   <Grid
     gap="l"
-    align="space-around"
+    align="around"
     justifyItems="center"
   >
     <Seo metadata={seo} />

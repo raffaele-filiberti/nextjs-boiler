@@ -1,3 +1,4 @@
+import React from 'react';
 import { NextSeo } from 'next-seo';
 
 type Props = {
@@ -5,7 +6,7 @@ type Props = {
     title: string,
     description: string,
   } | null
-}
+};
 
 const Seo = ({ metadata }: Props): JSX.Element => {
   // Prevent errors if no metadata was set
@@ -22,7 +23,7 @@ const Seo = ({ metadata }: Props): JSX.Element => {
         url: process.env.NEXT_PUBLIC_URL,
         type: 'website',
         images: [{
-          url: `${process.env.NEXT_PUBLIC_URL}/social-image.jpg`,
+          url: `${process.env.NEXT_PUBLIC_URL}/social-card.png`,
           width: 1200,
           height: 630,
         }],

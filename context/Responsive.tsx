@@ -21,7 +21,7 @@ const getScreen = (breakpoints: { [key: string]: number }) => {
 
   const { innerWidth: width = 1, innerHeight: height = 1 } = global;
   const isTouch = 'ontouchstart' in global;
-  const s = sizes.find(([, size]) => size < width)[0];
+  const s = sizes.find(([, size]) => size < width)![0];
   const orientation = width > height ? 'landscape' : 'portrait';
   return {
     size: Object.keys(breakpoints).reduce<{ [key: string]: boolean }>(
@@ -49,7 +49,7 @@ const getScreen = (breakpoints: { [key: string]: number }) => {
 type Props = {
   breakpoints: { [key: string]: number };
   children: React.ReactNode;
-}
+};
 
 export const ResponsiveProvider = ({
   breakpoints,
@@ -74,4 +74,3 @@ export const ResponsiveProvider = ({
 };
 
 export default ResponsiveContext;
-

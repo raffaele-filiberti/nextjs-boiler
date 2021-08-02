@@ -1,4 +1,3 @@
-/* eslint-disable react/prop-types */
 import React, { useEffect } from 'react';
 import { StyleSheetManager, ThemeProvider } from 'styled-components';
 import { addEvent } from '@flbrt/utils/dom';

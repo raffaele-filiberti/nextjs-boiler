@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import { isFunction } from '@flbrt/utils/type';
-import LayerContext, { Layer } from '~/context/Layers';
+import LayerContext, { LayerProps } from '~/context/Layers';
 import { Wrapper } from './Layer.styled';
 
 const defaultVariants = {
@@ -30,9 +30,9 @@ const defaultVariants = {
 
 type Props = {
   id: string;
-  children: React.ReactNode | ((layer: Layer) => React.ReactNode);
+  children: React.ReactNode | ((layer: LayerProps) => React.ReactNode);
   variant: 'base' | 'custom';
-}
+};
 
 const Layer = ({ id, children, variant }: Props): JSX.Element => {
   const { state, createLayer, removeLayer } = useContext(LayerContext);
@@ -60,7 +60,7 @@ const Layer = ({ id, children, variant }: Props): JSX.Element => {
           >
             {
               isFunction(children)
-                ? (children as ((value: Layer) => React.ReactNode))(layer)
+                ? (children as ((value: LayerProps) => React.ReactNode))(layer)
                 : children
             }
           </Wrapper>

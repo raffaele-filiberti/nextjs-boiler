@@ -2,19 +2,19 @@ import { isObject } from '@flbrt/utils/type';
 import React, { useCallback, useEffect, useReducer } from 'react';
 import { useRouter } from 'next/router';
 
-export type Layer = {
+export type LayerProps = {
   id: string;
   isActive?: boolean;
   data?: {
     [key: string]: any
   }
-}
+};
 
 interface LayerContextInterface {
-  state: Array<Layer>;
-  createLayer: (payload: Layer | string) => void,
-  activeLayer: (payload: Layer | string) => void,
-  toggleLayer: (payload: Layer | string) => void,
+  state: Array<LayerProps>;
+  createLayer: (payload: LayerProps | string) => void,
+  activeLayer: (payload: LayerProps | string) => void,
+  toggleLayer: (payload: LayerProps | string) => void,
   disactiveLayer: (id: string) => void,
   resetDataLayer: (id: string) => void,
   removeLayer: (id: string) => void,
@@ -25,7 +25,7 @@ const LayerContext = React.createContext<LayerContextInterface | Record<string, 
 
 const { Provider } = LayerContext;
 
-const initialState: Array<Layer> = [];
+const initialState: Array<LayerProps> = [];
 const CREATE_LAYER = 'CREATE_LAYER';
 const ACTIVE_LAYER = 'ACTIVE_LAYER';
 const TOGGLE_LAYER = 'TOGGLE_LAYER';
@@ -35,9 +35,9 @@ const REMOVE_LAYER = 'REMOVE_LAYER';
 const DISACTIVE_ALL_LAYER = 'DISACTIVE_ALL_LAYER';
 
 type ActionType =
-  | { type: 'CREATE_LAYER'; payload: Layer | string }
-  | { type: 'ACTIVE_LAYER'; payload: Layer | string }
-  | { type: 'TOGGLE_LAYER'; payload: Layer | string }
+  | { type: 'CREATE_LAYER'; payload: LayerProps | string }
+  | { type: 'ACTIVE_LAYER'; payload: LayerProps | string }
+  | { type: 'TOGGLE_LAYER'; payload: LayerProps | string }
   | { type: 'DISACTIVE_LAYER'; payload: string }
   | { type: 'RESET_DATA_LAYER'; payload: string }
   | { type: 'REMOVE_LAYER'; payload: string }
@@ -46,7 +46,7 @@ type ActionType =
 function reducer(state: typeof initialState, action: ActionType, exclusive = true) {
   if (typeof action === 'undefined') return state;
   const payload = isObject(action.payload)
-    ? action.payload as Layer
+    ? action.payload as LayerProps
     : { id: action.payload as string };
   switch (action.type) {
     case CREATE_LAYER: {
@@ -169,4 +169,3 @@ export const LayerProvider = ({ children }: { children: React.ReactElement }): J
 };
 
 export default LayerContext;
-

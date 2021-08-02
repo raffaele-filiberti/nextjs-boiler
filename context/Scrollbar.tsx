@@ -1,7 +1,11 @@
 import { clamp } from '@flbrt/utils/math';
 import { isNumber, isString } from '@flbrt/utils/type';
-import { animate, MotionValue, Tween, useMotionValue } from 'framer-motion';
-import React, { useCallback, useContext, useEffect, useMemo, useRef } from 'react';
+import {
+  animate, MotionValue, Tween, useMotionValue,
+} from 'framer-motion';
+import React, {
+  useCallback, useContext, useEffect, useMemo, useRef,
+} from 'react';
 import ResponsiveContext from './Responsive';
 
 interface ScrollbarContextInterface {
@@ -26,7 +30,7 @@ const ScrollbarContext = React.createContext<ScrollbarContextInterface | Record<
 
 type Props = {
   children: React.ReactNode
-}
+};
 
 export const ScrollbarProvider = ({ children }: Props): JSX.Element => {
   const { isTouch, isAtLeast } = useContext(ResponsiveContext);
@@ -47,7 +51,7 @@ export const ScrollbarProvider = ({ children }: Props): JSX.Element => {
     isScrollingTo: false,
     isRunning: true,
     setIsRunning: (value) => {
-      document.body.style.overflow = value ? null : 'hidden';
+      document.body.style.overflow = value ? 'inherit' : 'hidden';
       contextRef.current.isRunning = value;
     },
     isNative: isTouch || !isAtLeastSm,
@@ -61,6 +65,8 @@ export const ScrollbarProvider = ({ children }: Props): JSX.Element => {
     duration: 1,
     ease: [0.65, 0, 0.35, 1],
   }) => {
+    const { limit, isNative, el } = contextRef.current;
+
     let targetY = 0;
 
     if (isNumber(to)) {
@@ -70,14 +76,18 @@ export const ScrollbarProvider = ({ children }: Props): JSX.Element => {
     if (isString(to)) {
       const node = document.querySelector<HTMLElement>(to);
       if (node) {
-        targetY = clamp(node.offsetTop, 0, contextRef.current.limit);
+        targetY = clamp(node.offsetTop, 0, limit);
       } else {
         return;
       }
     }
 
-    if (contextRef.current.isNative) {
-      contextRef.current.el.scrollTo({ top: targetY, left: 0, behavior: 'smooth' });
+    if (isNative && el) {
+      el.scrollTo({
+        top: targetY,
+        left: 0,
+        behavior: 'smooth',
+      });
     } else {
       animate(scrollY, targetY, {
         type: 'tween',
@@ -88,7 +98,7 @@ export const ScrollbarProvider = ({ children }: Props): JSX.Element => {
           contextRef.current.isScrollingTo = true;
         },
         onUpdate: (value) => {
-          scrollYProgress.set(value / contextRef.current.limit);
+          scrollYProgress.set(value / limit);
         },
         onComplete: () => {
           contextRef.current.target = targetY;

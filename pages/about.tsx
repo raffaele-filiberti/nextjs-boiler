@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text } from '@flbrt/styled';
+import { Grid, Text } from '@flbrt/styled';
 import Link from 'next/link';
 import Seo from '~/components/Seo';
 
@@ -8,17 +8,24 @@ type Props = {
     title: string;
     description: string;
   }
-}
+};
 
 const defaultProps = { seo: null };
 
 const About = ({ seo }: Props): JSX.Element => (
-  <div>
+  <Grid
+    gap="l"
+    align="around"
+    justifyItems="center"
+  >
     <Seo metadata={seo} />
     <Text variant="display">
       ABOUT
     </Text>
-    <Text variant="display">
+    <Text
+      variant="base"
+      align="center"
+    >
       Lorem ipsum dolor sit amet consectetur adipisicing elit.
       Enim ducimus, eos atque quibusdam rem eaque qui nesciunt?
       Earum, quasi. Saepe, exercitationem laudantium voluptatibus
@@ -31,12 +38,12 @@ const About = ({ seo }: Props): JSX.Element => (
     >
       <Text
         as="a"
-        variant="display"
+        variant="base"
       >
         Go back to Home
       </Text>
     </Link>
-  </div>
+  </Grid>
 );
 
 About.defaultProps = defaultProps;
