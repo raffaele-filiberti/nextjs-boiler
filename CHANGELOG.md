@@ -1,3 +1,21 @@
+# [1.8.0](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.7.0...1.8.0) (2021-08-09)
+
+
+### Bug Fixes
+
+* **components/seo:** add path to canonical ([d5f9104](https://github.com/raffaele-filiberti/nextjs-boiler/commit/d5f9104f1b85b5fe88b33d8c4657bb1b8bf57be1))
+* **public:** add placeholder img ([e5e16f3](https://github.com/raffaele-filiberti/nextjs-boiler/commit/e5e16f3547f3f391d314a09a7254ca5d62ab03bd))
+* **styles:** update styled components theme ([0fae350](https://github.com/raffaele-filiberti/nextjs-boiler/commit/0fae350d45958319ec6b4b49ca0b9c791518bc58))
+
+
+### Features
+
+* **components/animate:** add Animate component ([ee6830d](https://github.com/raffaele-filiberti/nextjs-boiler/commit/ee6830d4fa8ad986d55454f341ad7e24fa5a3cc7))
+* **components/loader:** add basic loader ([04ff8e0](https://github.com/raffaele-filiberti/nextjs-boiler/commit/04ff8e08afae202952f799a75e2407386b4848b5))
+* **components/ratio:** add Ratio component ([8f51fba](https://github.com/raffaele-filiberti/nextjs-boiler/commit/8f51fba5b1e698b5a2a0fb7d8fa0278de68cf4dd))
+* **context/nav:** add Nav context to handle loading / prev routing / completed first animation ([93ea58d](https://github.com/raffaele-filiberti/nextjs-boiler/commit/93ea58dd1fbc85ed1e325a5e2b8f331602330742))
+* **framer-motion:** remove motion component ([535f371](https://github.com/raffaele-filiberti/nextjs-boiler/commit/535f3718a52168590a66a16b7a7394ceed9486de))
+
 # [1.7.0](https://github.com/raffaele-filiberti/nextjs-boiler/compare/1.6.0...1.7.0) (2021-06-28)
 
 
