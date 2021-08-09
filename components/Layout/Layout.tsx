@@ -1,42 +1,13 @@
 import React from 'react';
-import { m as motion } from 'framer-motion';
-import { Spacer } from '@flbrt/styled';
 import Scrollbar from '~/components/Scrollbar';
+import Animate from '~/components/Animate';
+import animations from '~/animations';
 
-const variants = {
-  initial: { opacity: 0 },
-  animate: {
-    opacity: 1,
-    transition: {
-      duration: 0.5,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      duration: 0.5,
-      ease: [0.16, 1, 0.3, 1],
-    },
-  },
-};
-
-type Props = {
-  children: React.ReactNode;
-};
-
-const Layout = ({ children }: Props): JSX.Element => (
+const Layout: React.FC = ({ children }) => (
   <Scrollbar>
-    <Spacer
-      as={motion.div}
-      root={['l', 'xl']}
-      exit="exit"
-      animate="animate"
-      initial="initial"
-      variants={variants}
-    >
+    <Animate variants={animations.fade}>
       {children}
-    </Spacer>
+    </Animate>
   </Scrollbar>
 );
 

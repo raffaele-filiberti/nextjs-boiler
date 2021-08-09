@@ -2,11 +2,10 @@ import React, {
   useCallback, useContext, useEffect, useRef,
   CSSProperties,
 } from 'react';
-import { m as motion, useTransform } from 'framer-motion';
 import { clamp, lerp } from '@flbrt/utils/math';
 import { useRaf, useResize, useWheel } from '@flbrt/utils/react/hooks';
 import { debounce } from '@flbrt/utils/time';
-import { addEvent } from '@flbrt/utils/dom';
+import anime from 'animejs';
 import ScrollbarContext from '~/context/Scrollbar';
 
 type Props = {
@@ -25,21 +24,17 @@ const Scrollbar = ({ children, className, style }: Props): JSX.Element => {
 
   const { scrollY, scrollYProgress, isNative } = context;
 
-  const y = useTransform(scrollY, (value) => value * -1);
-
   const ref = useRef<HTMLDivElement>();
 
   useResize(debounce(() => {
-    if (ref.current) {
-      const { offsetTop } = ref.current.parentElement!;
-      context.limit = ref.current.clientHeight - window.innerHeight + offsetTop;
-      context.target = clamp(context.target, 0, context.limit);
-    }
+    const { offsetTop } = ref.current.parentElement!;
+    context.limit = ref.current.clientHeight - window.innerHeight + offsetTop;
+    context.target = clamp(context.target, 0, context.limit);
   }, 100));
 
   const onRaf = useCallback(() => {
     if (context.isRunning) {
-      let newY;
+      let newY = 0;
       if (context.forceScroll) {
         context.forceScroll = false;
         newY = 0;
@@ -51,6 +46,8 @@ const Scrollbar = ({ children, className, style }: Props): JSX.Element => {
       }
       scrollY.set(newY);
       scrollYProgress.set(newY / context.limit);
+
+      anime.set(ref.current, { translateY: !isNative ? newY * -1 : null });
     }
   }, [scrollY, scrollYProgress, context]);
 
@@ -61,37 +58,25 @@ const Scrollbar = ({ children, className, style }: Props): JSX.Element => {
     }
   }, [context]);
 
+  useEffect(() => {
+    context.el = ref.current;
+
+    return () => {
+      context.forceScroll = true;
+    };
+  }, [context]);
+
   useRaf(onRaf);
   useWheel(onWheel);
 
-  useEffect(() => {
-    if (ref.current) {
-      context.el = ref.current;
-
-      const off = addEvent(ref.current, 'scroll', () => {
-        context.isRunning = false;
-        scrollY.set(ref.current!.scrollTop);
-      });
-
-      return off;
-    }
-  }, [scrollY, context]);
-
-  useEffect(() => () => {
-    context.forceScroll = true;
-  }, [context]);
-
   return (
-    <motion.div
+    <div
       ref={ref}
       className={className}
-      style={{
-        y: !isNative ? y : undefined,
-        ...style,
-      }}
+      style={style}
     >
       {children}
-    </motion.div>
+    </div>
   );
 };
 

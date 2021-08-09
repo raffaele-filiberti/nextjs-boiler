@@ -1,11 +1,8 @@
 import { clamp } from '@flbrt/utils/math';
 import { isNumber, isString } from '@flbrt/utils/type';
-import {
-  animate, MotionValue, Tween, useMotionValue,
-} from 'framer-motion';
-import React, {
-  useCallback, useContext, useEffect, useMemo, useRef,
-} from 'react';
+import anime from 'animejs';
+import { MotionValue, useMotionValue } from 'framer-motion';
+import React, { useContext, useEffect, useRef } from 'react';
 import ResponsiveContext from './Responsive';
 
 interface ScrollbarContextInterface {
@@ -15,12 +12,11 @@ interface ScrollbarContextInterface {
   scrollYProgress: MotionValue<number>;
   mobileScrollY: MotionValue<number>;
   forceScroll: boolean;
-  isScrollingTo: boolean;
   isRunning: boolean;
   setIsRunning: (value: boolean) => void;
-  scrollTo?: (to: boolean | string, options: {
-    duration: Pick<Tween, 'duration'>;
-    ease: Pick<Tween, 'ease'>;
+  scrollTo: (to: number | string, options?: {
+    duration: number;
+    ease: string;
   }) => void;
   isNative: boolean;
   el: HTMLElement | null,
@@ -35,7 +31,7 @@ type Props = {
 export const ScrollbarProvider = ({ children }: Props): JSX.Element => {
   const { isTouch, isAtLeast } = useContext(ResponsiveContext);
 
-  const isAtLeastSm = useMemo(() => isAtLeast('sm'), [isAtLeast]);
+  const isAtLeastSm = isAtLeast('sm');
 
   const scrollY = useMotionValue(0);
   const scrollYProgress = useMotionValue(0);
@@ -48,7 +44,6 @@ export const ScrollbarProvider = ({ children }: Props): JSX.Element => {
     scrollYProgress,
     mobileScrollY,
     forceScroll: false,
-    isScrollingTo: false,
     isRunning: true,
     setIsRunning: (value) => {
       document.body.style.overflow = value ? 'inherit' : 'hidden';
@@ -56,62 +51,64 @@ export const ScrollbarProvider = ({ children }: Props): JSX.Element => {
     },
     isNative: isTouch || !isAtLeastSm,
     el: null,
-  });
+    scrollTo: (to, {
+      duration = 1000,
+      ease = 'easeOutExpo',
+    } = {
+      duration: 1000,
+      ease: 'easeOutExpo',
+    }) => {
+      const { limit, isNative, el } = contextRef.current;
 
-  const scrollTo = useCallback((to, {
-    duration = 1,
-    ease = [0.65, 0, 0.35, 1],
-  } = {
-    duration: 1,
-    ease: [0.65, 0, 0.35, 1],
-  }) => {
-    const { limit, isNative, el } = contextRef.current;
+      let targetY = 0;
 
-    let targetY = 0;
-
-    if (isNumber(to)) {
-      targetY = to;
-    }
-
-    if (isString(to)) {
-      const node = document.querySelector<HTMLElement>(to);
-      if (node) {
-        targetY = clamp(node.offsetTop, 0, limit);
-      } else {
-        return;
+      if (isNumber(to)) {
+        targetY = to;
       }
-    }
 
-    if (isNative && el) {
-      el.scrollTo({
-        top: targetY,
-        left: 0,
-        behavior: 'smooth',
-      });
-    } else {
-      animate(scrollY, targetY, {
-        type: 'tween',
-        ease,
-        duration,
-        onPlay: () => {
-          contextRef.current.isRunning = false;
-          contextRef.current.isScrollingTo = true;
-        },
-        onUpdate: (value) => {
-          scrollYProgress.set(value / limit);
-        },
-        onComplete: () => {
-          contextRef.current.target = targetY;
-          contextRef.current.isRunning = true;
-          contextRef.current.isScrollingTo = false;
-        },
-      });
-    }
-  }, [scrollY, scrollYProgress]);
+      if (isString(to)) {
+        const node = document.querySelector<HTMLElement>(to);
+        if (node) {
+          targetY = clamp(node.offsetTop, 0, limit);
+        } else {
+          return;
+        }
+      }
 
-  useEffect(() => {
-    contextRef.current.scrollTo = scrollTo;
-  }, [scrollTo]);
+      if (isNative) {
+        const scrollElement = window.document.scrollingElement
+          || window.document.body
+          || window.document.documentElement;
+
+        anime({
+          targets: scrollElement,
+          scrollTop: targetY,
+          easing: ease,
+          duration,
+        });
+      } else {
+        const targets = { value: scrollY.get() };
+        anime({
+          targets,
+          value: targetY,
+          easing: ease,
+          duration,
+          begin: () => {
+            contextRef.current.isRunning = false;
+          },
+          update: () => {
+            scrollY.set(targets.value);
+            scrollYProgress.set(targets.value / limit);
+            anime.set(el, { translateY: !isNative ? targets.value * -1 : null });
+          },
+          complete: () => {
+            contextRef.current.target = targetY;
+            contextRef.current.isRunning = true;
+          },
+        });
+      }
+    },
+  });
 
   useEffect(() => {
     contextRef.current.isNative = isTouch || !isAtLeastSm;

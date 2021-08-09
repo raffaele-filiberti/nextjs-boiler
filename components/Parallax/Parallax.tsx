@@ -1,9 +1,10 @@
-import React, { useCallback, useContext, useRef } from 'react';
-import { m as motion, useTransform } from 'framer-motion';
+import React, {
+  CSSProperties, useCallback, useContext, useRef,
+} from 'react';
 import { getTranslate } from '@flbrt/utils/dom';
 import useResizeObserver from 'use-resize-observer';
 import { debounce } from '@flbrt/utils/time';
-import styled, { CSSProperties } from 'styled-components';
+import anime from 'animejs';
 import ScrollbarContext from '~/context/Scrollbar';
 
 const parallaxByPosition = {
@@ -38,29 +39,22 @@ const parallaxByPosition = {
 };
 
 export interface CSSCustomProperties extends CSSProperties {
-  '--delay': string;
+  '--delay'?: string;
 }
 
 interface Props {
-  as?: string | React.ComponentType<any>;
-  tag?: string;
   target?: string;
   children?: React.ReactNode;
   position?: string;
   speed?: number;
   offset?: number;
   direction?: string;
+  className?: string;
   style?: CSSCustomProperties;
   [key: string]: unknown;
 }
 
-const Wrapper = styled.div`
-  will-change: transfrom;
-`;
-
 const Parallax = ({
-  as: As,
-  tag,
   target,
   children,
   position,
@@ -68,6 +62,7 @@ const Parallax = ({
   offset,
   direction,
   style,
+  className,
   ...props
 }: Props): JSX.Element => {
   const inView = useRef<boolean>(false);
@@ -81,42 +76,43 @@ const Parallax = ({
     middle: 0,
   });
 
-  const { scrollY, limit } = useContext(ScrollbarContext);
+  const { scrollY, limit, isNative } = useContext(ScrollbarContext);
 
-  const y = useTransform(
-    scrollY,
-    (scrollTop: number) => {
-      const scrollBottom = scrollTop + global.innerHeight;
-      const scrollMiddle = scrollTop + global.innerHeight / 2;
+  const onScrollYChange = useCallback((scrollTop = 0) => {
+    const scrollBottom = scrollTop + global.innerHeight;
+    const scrollMiddle = scrollTop + global.innerHeight / 2;
 
-      const { current: { top, bottom } } = bounds;
+    const { current: { top, bottom } } = bounds;
 
-      if (!inView.current) {
-        if (scrollBottom >= top && scrollTop < bottom) {
-          inView.current = true;
-        }
-      } else if (scrollBottom < top || scrollTop > bottom) {
-        inView.current = false;
+    if (!inView.current) {
+      if (scrollBottom >= top && scrollTop < bottom) {
+        inView.current = true;
       }
+    } else if (scrollBottom < top || scrollTop > bottom) {
+      inView.current = false;
+    }
 
-      if (position === 'sticky' || inView.current) {
-        prev.current = parallaxByPosition[position]({
-          scrollBottom,
-          scrollMiddle,
-          scrollTop,
-          speed,
-          bounds: bounds.current,
-          limit,
-          inView: inView.current,
-          prev: prev.current,
-        });
-      }
+    if (position === 'sticky' || inView.current) {
+      prev.current = parallaxByPosition[position]({
+        scrollBottom,
+        scrollMiddle,
+        scrollTop,
+        speed,
+        bounds: bounds.current,
+        limit,
+        inView: inView.current,
+        prev: prev.current,
+      });
+    }
 
-      return prev.current;
-    },
-  );
+    anime.set(ref.current, {
+      translateX: direction === 'horizontal' ? prev.current : 0,
+      translateY: direction === 'vertical' ? prev.current : 0,
+    });
+  }, []);
 
   const onResize = debounce(() => {
+    if (isNative) return;
     const targetEl = target ? document.querySelector<HTMLElement>(target) : ref.current;
     const targetElBCR = targetEl.getBoundingClientRect();
 
@@ -146,6 +142,8 @@ const Parallax = ({
     } = bounds.current;
 
     bounds.current.middle = ($bottom - $top) / 2 + $top;
+
+    onScrollYChange(scrollY.get());
   }, 100);
 
   const { ref: resizeRef } = useResizeObserver({ onResize });
@@ -158,28 +156,36 @@ const Parallax = ({
     [resizeRef],
   );
 
+  if (isNative) {
+    return (
+      <div
+        style={style}
+        className={className}
+        {...props}
+      >
+        {children}
+      </div>
+    );
+  }
+
+  scrollY.onChange(onScrollYChange);
+
   return (
-    <Wrapper
-      as={As || motion[tag]}
-      forwardedAs={As ? motion[tag] : null}
+    <div
       ref={setRefs}
-      style={{
-        x: direction === 'horizontal' ? y : 0,
-        y: direction === 'vertical' ? y : 0,
-        ...style,
-      }}
+      style={style}
+      className={className}
       {...props}
     >
       {children}
-    </Wrapper>
+    </div>
   );
 };
 
 Parallax.defaultProps = {
-  as: null,
-  tag: 'div',
   target: null,
   children: null,
+  className: null,
   position: 'normal',
   direction: 'vertical',
   speed: 0.1,
