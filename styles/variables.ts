@@ -1,3 +1,4 @@
+import { breakpoints } from '@flbrt/styled';
 import { css } from 'styled-components';
 
 export default css/* css */`
@@ -7,14 +8,12 @@ export default css/* css */`
     --color-background: #fff;
     --color-base: #000;
 
-    --font-family-base: 'Space Mono', monospace;
-
-    --font-size-display: 300px;
+    --font-size-display: 30vw;
     --font-size-heading: 32px;
-    --font-size-base: 14px;
+    --font-size-base: 16px;
 
-    --container-x: 5.208vw;
-    --container-y: 2.083vw;
+    --container-x: 24px;
+    --container-y: 40px;
 
     --s: 8px;
     --m: 16px;
@@ -23,4 +22,15 @@ export default css/* css */`
     --xxl: 40px;
     --xxxl: 56px;
   }
+
+  ${breakpoints('sm')/* css */`
+    :root {
+      --font-size-display: 15.625vw;
+      --font-size-heading: 32px;
+      --font-size-base: 16px;
+
+      --container-x: 10.4166666667vw;
+      --container-y: 6.25vw;
+    }
+  `}
 `;

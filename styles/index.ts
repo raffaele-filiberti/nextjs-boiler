@@ -22,10 +22,21 @@ const GlobalStyle = createGlobalStyle/* css */`
 
   body {
     background-color: var(--color-background);
-    font-family: var(--font-family-base);
+    font-family: -apple-system, BlinkMacSystemFont,
+    "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
     font-size: var(--font-size-base);
     color: var(--color-base);
     line-height: 1.4;
+  }
+  
+  .oh {
+    overflow: hidden;
+  }
+
+  [data-anime] {
+    display: block;
   }
 
   ::-webkit-scrollbar {
