@@ -1,7 +1,17 @@
-import React from 'react';
-import { Text, Grid } from '@flbrt/styled';
+import React, { useContext } from 'react';
+import { Text, Grid, Spacer } from '@flbrt/styled';
 import Link from 'next/link';
 import Seo from '~/components/Seo';
+import Animate from '~/components/Animate';
+import animations from '~/animations';
+import Parallax from '~/components/Parallax/Parallax';
+import Ratio from '~/components/Ratio/Ratio';
+import {
+  FitAbsolute, FullHeight, ImageCover, ScrollIndicator,
+} from '~/styles/common';
+
+import NavContext from '~/context/Nav';
+import ScrollbarContext from '~/context/Scrollbar';
 
 type Props = {
   seo?: {
@@ -12,39 +22,142 @@ type Props = {
 
 const defaultProps = { seo: null };
 
-const Index = ({ seo }: Props): JSX.Element => (
-  <Grid
-    gap="l"
-    align="around"
-    justifyItems="center"
-  >
-    <Seo metadata={seo} />
-    <Text variant="display">
-      HOME
-    </Text>
-    <Text
-      variant="base"
-      align="center"
-    >
-      Lorem ipsum dolor sit amet consectetur adipisicing elit.
-      Enim ducimus, eos atque quibusdam rem eaque qui nesciunt?
-      Earum, quasi. Saepe, exercitationem laudantium voluptatibus
-      esse accusantium vero incidunt numquam eveniet sunt!
-    </Text>
-    <Link
-      href="/about"
-      scroll={false}
-      passHref
-    >
-      <Text
-        as="a"
-        variant="base"
+const Index = ({ seo }: Props): JSX.Element => {
+  const { isLoading } = useContext(NavContext);
+  const { scrollTo } = useContext(ScrollbarContext);
+  return (
+    <>
+      <Seo metadata={seo} />
+      <FullHeight
+        as={Animate}
+        variants={animations.hero}
+        enter={!isLoading}
       >
-        Go to About
-      </Text>
-    </Link>
-  </Grid>
-);
+        <FitAbsolute
+          as={Parallax}
+          speed={-0.1}
+          style={{ background: 'black' }}
+        >
+          <ImageCover
+            src="/img01.jpg"
+            alt=""
+            style={{ opacity: 0.7 }}
+          />
+        </FitAbsolute>
+        <FitAbsolute
+          as={Grid}
+          gap="xl"
+          align="center"
+          justify="center"
+        >
+          <Text
+            variant="display"
+            align="center"
+            tint="white"
+            as="h2"
+            className="oh"
+          >
+            <span data-anime>
+              Hello
+            </span>
+          </Text>
+          <Text
+            variant="base"
+            align="center"
+            tint="white"
+            className="oh"
+          >
+            <span data-anime>
+              THIS IS A DEMO PAGE BUILD WITH NEXT.JS / STYLED COMPONENTS / ANIME.JS
+            </span>
+          </Text>
+        </FitAbsolute>
+        <ScrollIndicator
+          className="oh"
+        >
+          <Text
+            as="button"
+            variant="base"
+            align="center"
+            tint="white"
+            onClick={() => scrollTo('#first-section')}
+          >
+            <span data-anime>
+              DISCOVER
+            </span>
+          </Text>
+        </ScrollIndicator>
+      </FullHeight>
+      <Spacer
+        root={['containerY', 'containerX']}
+        id="first-section"
+      >
+        <Grid
+          gap={8}
+          as={Animate}
+          variants={animations.staggeredFade}
+          exit={false}
+          triggerInView
+        >
+          <Text variant="heading">
+            Staggered content 1
+          </Text>
+          <Text variant="base">
+            Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+            Sint ipsum iure enim tenetur doloremque nemo nulla?
+            Harum, excepturi ut enim animi asperiores accusamus
+            eligendi quis eos, at neque nobis. Numquam?
+          </Text>
+          <Text variant="base">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Enim ducimus, eos atque quibusdam rem eaque qui nesciunt?
+            Earum, quasi. Saepe, exercitationem laudantium voluptatibus
+            esse accusantium vero incidunt numquam eveniet sunt!
+          </Text>
+          <Text variant="base">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit.
+            Enim ducimus, eos atque quibusdam rem eaque qui nesciunt?
+            Earum, quasi. Saepe, exercitationem laudantium voluptatibus
+            esse accusantium vero incidunt numquam eveniet sunt!
+          </Text>
+          <Link
+            href="/about"
+            scroll={false}
+            passHref
+          >
+            <Text
+              as="a"
+              variant="base"
+            >
+              Go to About
+            </Text>
+          </Link>
+        </Grid>
+      </Spacer>
+      <Ratio
+        ratio="16:8"
+        mask
+      >
+        <Parallax
+          speed={-0.1}
+          style={{
+            position: 'absolute',
+            height: '100%',
+            width: '100%',
+          }}
+        >
+          <ImageCover
+            src="/img01.jpg"
+            alt=""
+          />
+        </Parallax>
+      </Ratio>
+      <footer>
+        Next.js boilerplate
+      </footer>
+    </>
+  );
+};
 
 Index.defaultProps = defaultProps;
 

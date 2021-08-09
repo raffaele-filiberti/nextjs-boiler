@@ -1,9 +1,10 @@
 import React, { useEffect } from 'react';
 import { StyleSheetManager, ThemeProvider } from 'styled-components';
 import { addEvent } from '@flbrt/utils/dom';
-import { AnimatePresence, LazyMotion, domAnimation } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { DefaultSeo } from 'next-seo';
 import type { AppProps } from 'next/app';
+import { createUnsubscribeCollection } from '@flbrt/utils';
 import GlobalStyles from '~/styles';
 import theme from '~/styles/theme';
 import { pageview } from '~/lib/gtag';
@@ -12,6 +13,8 @@ import breakpoints from '~/styles/breakpoints';
 import SEO from '~/next-seo.config';
 import { ResponsiveProvider } from '~/context/Responsive';
 import { ScrollbarProvider } from '~/context/Scrollbar';
+import { NavProvider } from '~/context/Nav';
+import Loader from '~/components/Loader/Loader';
 
 const setVh = () => {
   document.documentElement.style.setProperty(
@@ -32,6 +35,8 @@ const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
   }, [router.events]);
 
   useEffect(() => {
+    const [disposableEvents, callDisposeEvents] = createUnsubscribeCollection();
+
     const onOrientationChange = () => {
       let removeResize;
       const afterOrientationChange = () => {
@@ -41,15 +46,20 @@ const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
       removeResize = addEvent(window, 'resize', afterOrientationChange);
     };
 
-    const removeOrientationChange = addEvent(window, 'orientationchange', onOrientationChange);
-    const removeResize = addEvent(window, 'resize', setVh);
+    const disposeOrientationChange = addEvent(window, 'orientationchange', onOrientationChange);
+
+    disposableEvents.push(disposeOrientationChange);
+
+    if (!('ontouchstart' in window)) {
+      const disposeResize = addEvent(window, 'resize', setVh);
+      disposableEvents.push(disposeResize);
+    }
 
     setVh();
 
-    return () => {
-      removeOrientationChange();
-      removeResize();
-    };
+    document.getElementById('__next').classList.add('app-loaded');
+
+    return callDisposeEvents;
   }, []);
 
   return (
@@ -57,11 +67,9 @@ const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
       <ThemeProvider theme={theme}>
         <GlobalStyles />
         <ResponsiveProvider breakpoints={breakpoints}>
-          <ScrollbarProvider>
-            <LazyMotion
-              features={domAnimation}
-              strict
-            >
+          <NavProvider>
+            <Loader />
+            <ScrollbarProvider>
               <AnimatePresence
                 exitBeforeEnter
                 initial={false}
@@ -72,8 +80,8 @@ const App = ({ Component, pageProps, router }: AppProps): JSX.Element => {
                   <Component {...pageProps} />
                 </Layout>
               </AnimatePresence>
-            </LazyMotion>
-          </ScrollbarProvider>
+            </ScrollbarProvider>
+          </NavProvider>
         </ResponsiveProvider>
       </ThemeProvider>
     </StyleSheetManager>
